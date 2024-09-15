@@ -38,21 +38,21 @@ const Footer = () => {
               <h4 className="text-white mb-4">Contact Us</h4>
               <div>
                 <address className="text-white fs-6">
-                  Hno : Daiict college, Reliance Cross Rd, <br />{" "}
-                  Gandhinagar,Gujarat <br />
-                  PinCode: 382007
+                  Pillai College Of Engineering <br />{" "}
+                  Navi Mumbai, New Panvel <br />
+                  PinCode: 421503
                 </address>
                 <a
-                  href="tel:+91 8264954234"
+                  href="tel:+91 9422006294"
                   className="mt-3 d-block mb-1 text-white"
                 >
-                  +91 8264954234
+                  +91 9422006294
                 </a>
                 <a
-                  href="mailto:devjariwala8444@gmail.com"
+                  href="mailto:onlyystudyy@gmail.com"
                   className="mt-2 d-block mb-0 text-white"
                 >
-                  devjariwala8444@gmail.com
+                  teamfusion@gmail.com
                 </a>
                 <div className="social_icons d-flex align-items-center gap-30 mt-4">
                   <a className="text-white" href="#">
