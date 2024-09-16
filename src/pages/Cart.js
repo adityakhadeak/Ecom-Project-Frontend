@@ -90,13 +90,13 @@ const Cart = () => {
                     <div className="cart-col-1 gap-15 d-flex align-items-center">
                       <div className="w-25">
                         <img
-                          src={item?.productId.images[0].url}
+                          src={item?.productId?.images[0]?.url}
                           className="img-fluid"
                           alt="product image"
                         />
                       </div>
                       <div className="w-75">
-                        <p>{item?.productId.title}</p>
+                        <p>{item?.productId?.title}</p>
 
                         <p className="d-flex gap-3">
                           Color:

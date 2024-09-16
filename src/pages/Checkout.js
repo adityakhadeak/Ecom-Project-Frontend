@@ -146,7 +146,7 @@ const Checkout = () => {
       key: "rzp_test_HSSeDI22muUrLR", // Enter the Key ID generated from the Dashboard
       amount: amount,
       currency: currency,
-      name: "Cart's corner",
+      name: "QuickCart",
       description: "Test Transaction",
 
       order_id: order_id,
@@ -177,9 +177,9 @@ const Checkout = () => {
         dispatch(resetState());
       },
       prefill: {
-        name: "Dev Corner",
-        email: "devcorner@example.com",
-        contact: "9999999999",
+        name: "Aditya",
+        email: "aditya@example.com",
+        contact: "9455226688",
       },
       notes: {
         address: "developer's cornor office",
@@ -231,7 +231,7 @@ const Checkout = () => {
               </nav>
               <h4 className="title total">Contact Information</h4>
               <p className="user-details total">
-                Dev Jariwala (devjariwala8444@gmail.com)
+                Aditya (aditya@gmail.com)
               </p>
               <h4 className="mb-3">Shipping Address</h4>
               <form
@@ -336,7 +336,7 @@ const Checkout = () => {
                     <option value="" selected disabled>
                       Select State
                     </option>
-                    <option value="Gujarat">Gujarat</option>
+                    <option value="Maharashtra">Maharashtra</option>
                   </select>
                   <div className="error ms-2 my-1">
                     {formik.touched.state && formik.errors.state}

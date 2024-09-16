@@ -14,6 +14,7 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useState } from "react";
 
 const ProductCard = (props) => {
+  console.log(props)
   const navigate = useNavigate();
   const { grid, data } = props;
   const dispatch = useDispatch();
