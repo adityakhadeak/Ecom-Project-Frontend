@@ -39,7 +39,6 @@ const Home = () => {
   const getProducts = () => {
     dispatch(getAllProducts());
   };
-
   const addToWish = (id) => {
     //alert(id);
     dispatch(addToWishlist(id));
@@ -253,10 +252,11 @@ const Home = () => {
                         <h5 className="product-title">
                           {item?.title?.substr(0, 70) + "..."}
                         </h5>
+
                         <ReactStars
                           count={5}
                           size={24}
-                          value={item?.totalrating.toString()}
+                          value={item?.totalrating}
                           edit={false}
                           activeColor="#ffd700"
                         />

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import BreadCrumb from "../components/BreadCrumb";
+
 import Meta from "../components/Meta";
 import Container from "../components/Container";
 import CustomInput from "../components/CustomInput";
@@ -8,6 +9,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../features/user/userSlice";
+import { BeatLoader } from "react-spinners";
 
 let loginSchema = yup.object({
   email: yup
@@ -18,10 +20,11 @@ let loginSchema = yup.object({
   password: yup.string().required("Password is Required"),
 });
 
+
 const Login = () => {
   const authState = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -84,8 +87,8 @@ const Login = () => {
 
                   <div className="mt-3 d-flex justify-content-center gap-15 align-items-center">
                     <button className="button border-0" type="submit">
-                      Login
-                    </button>
+                      {authState?.isLoginLoading?<BeatLoader size={10}/>:"Login"}
+                     </button>
                     <Link to="/signup" className="button signup">
                       SignUp
                     </Link>

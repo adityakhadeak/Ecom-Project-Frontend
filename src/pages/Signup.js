@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../features/user/userSlice";
+import { BeatLoader } from "react-spinners";
 
 let signUpSchema = yup.object({
   firstname: yup.string().required("First Name is Required"),
@@ -35,6 +36,7 @@ const Signup = () => {
     validationSchema: signUpSchema,
     onSubmit: (values) => {
       dispatch(registerUser(values));
+      formik.resetForm()
     },
   });
 
@@ -115,7 +117,8 @@ const Signup = () => {
                 </div>
                 <div>
                   <div className="mt-3 d-flex justify-content-center gap-15 align-items-center">
-                    <button className="button border-0">Sign Up</button>
+                    <button className="button border-0">{authState?.isLoginLoading?<BeatLoader size={10}/>:"Sign Up"}
+                    </button>
                   </div>
                 </div>
               </form>

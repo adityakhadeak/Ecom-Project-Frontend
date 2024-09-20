@@ -156,6 +156,7 @@ const initialState = {
   isError: false,
   isSuccess: false,
   isLoading: false,
+  isLoginLoading:false,
   message: "",
 };
 
@@ -167,9 +168,11 @@ export const authSlice = createSlice({
     builder
       .addCase(registerUser.pending, (state) => {
         state.isLoading = true;
+        state.isLoginLoading = true;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.isLoginLoading = false;
         state.isError = false;
         state.isSuccess = true;
         state.createdUser = action.payload;
@@ -179,6 +182,7 @@ export const authSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;
+        state.isLoginLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
@@ -188,9 +192,12 @@ export const authSlice = createSlice({
       })
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
+        state.isLoginLoading = true;
+
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.isLoginLoading = false;
         state.isError = false;
         state.isSuccess = true;
         state.user = action.payload;
@@ -202,6 +209,7 @@ export const authSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
+        state.isLoginLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
