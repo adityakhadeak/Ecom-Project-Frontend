@@ -1,0 +1,62 @@
+/* src/components/ShippingPolicy.css */
+
+.shipping-policy-container {
+    background-color: #ffffff;
+    padding: 40px 20px;
+    max-width: 900px;
+    margin: 30px auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+  
+  .shipping-policy-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #000000;
+  }
+  
+  .shipping-policy-header h1 {
+    font-size: 36px;
+    color: #000000;
+  }
+  
+  .shipping-policy-header p {
+    font-size: 16px;
+    color: #555555;
+  }
+  
+  .shipping-policy-content {
+    padding: 0 20px;
+  }
+  
+  .shipping-section {
+    margin-bottom: 30px;
+  }
+  
+  .shipping-section h2 {
+    font-size: 22px;
+    color: #000000;
+    margin-bottom: 10px;
+    border-left: 5px solid #000000;
+    padding-left: 10px;
+  }
+  
+  .shipping-section p {
+    font-size: 16px;
+    color: #333333;
+    text-align: justify;
+  }
+  
+  .shipping-section ul {
+    margin-left: 20px;
+    color: #333333;
+  }
+  
+  .shipping-section ul li {
+    list-style-type: disc;
+    margin: 5px 0;
+  }
+  

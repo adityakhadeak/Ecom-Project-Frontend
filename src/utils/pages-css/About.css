@@ -1,0 +1,98 @@
+/* Importing Google Font - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+/* Container */
+.about-us-container {
+  background-color: #ffffff;
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Hero Section */
+.about-us-header {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://via.placeholder.com'); /* Replace with a suitable background image */
+  background-size: cover;
+  color: #ffffff;
+  border-radius: 10px;
+  margin-bottom: 40px;
+  transition: transform 0.3s ease;
+}
+
+.about-us-header:hover {
+  transform: translateY(-3px); /* Slight lift effect */
+}
+
+.about-us-header h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.about-us-header p {
+  font-size: 20px;
+  color: #f1f1f1;
+}
+
+/* Section Styling */
+.section {
+  margin-bottom: 50px;
+  padding: 20px 30px;
+  border-left: 5px solid #000000;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.section:hover {
+  transform: translateY(-5px);
+}
+
+.section h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #000000;
+  display: flex;
+  align-items: center;
+}
+
+.section h2::before {
+  content: '';
+  width: 35px;
+  height: 4px;
+  background-color: #000000;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.section p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #333333;
+}
+
+.icon {
+  font-size: 28px;
+  color: #000000;
+  margin-right: 10px;
+}
+
+.about-us-footer {
+  text-align: center;
+  margin-top: 40px;
+  padding: 20px;
+  border-top: 1px solid #cccccc;
+  background-color: #f9f9f9;
+  color: #555555;
+}
+
+.about-us-footer p {
+  font-size: 14px;
+}
+

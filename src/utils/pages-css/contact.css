@@ -1,0 +1,100 @@
+/* src/components/ContactForm.css */
+
+.contact-form-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px; /* Increased rounded corners */
+    max-width: 600px;
+    margin: 30px auto;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Added shadow for a floating effect */
+    transition: transform 0.3s ease;
+  }
+  
+  .contact-form-container:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+  }
+  
+  .contact-form-container h2 {
+    text-align: center;
+    color: #000000;
+    margin-bottom: 20px;
+    font-size: 28px;
+    border-bottom: 2px solid #000000; /* Section underline */
+    display: inline-block;
+    padding-bottom: 5px;
+  }
+  
+  .form-group {
+    margin-bottom: 25px; /* Increased spacing for better readability */
+    position: relative;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 8px;
+    font-size: 16px;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #cccccc;
+    border-radius: 8px; /* Rounded corners */
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: #000000; /* Focus color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow on focus */
+    outline: none;
+  }
+  
+  .input-error {
+    border-color: #ff0000;
+  }
+  
+  .error-text {
+    color: #ff0000;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+    position: absolute;
+    bottom: -20px; /* Adjusted to ensure the error text doesn't overlap */
+  }
+  
+  .submit-btn {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px; /* Rounded button */
+    font-size: 16px;
+    cursor: pointer;
+    display: block;
+    margin: 30px auto 0;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Button shadow */
+  }
+  
+  .submit-btn:hover {
+    background-color: #444444; /* Lighter black on hover */
+    transform: translateY(-3px); /* Button lift on hover */
+  }
+  
+  .success-message {
+    color: #007700;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border: 1px solid #d4ffd4;
+    background-color: #eaffea;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  

@@ -1,0 +1,52 @@
+/* src/components/TermsAndConditions.css */
+
+.terms-container {
+    background-color: #ffffff;
+    padding: 40px 20px;
+    max-width: 800px;
+    margin: 30px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+  
+  .terms-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #000000;
+  }
+  
+  .terms-header h1 {
+    font-size: 36px;
+    color: #000000;
+  }
+  
+  .terms-header p {
+    font-size: 16px;
+    color: #555555;
+  }
+  
+  .terms-content {
+    padding: 0 20px;
+  }
+  
+  .terms-section {
+    margin-bottom: 30px;
+  }
+  
+  .terms-section h2 {
+    font-size: 22px;
+    color: #000000;
+    margin-bottom: 10px;
+    border-left: 5px solid #000000;
+    padding-left: 10px;
+  }
+  
+  .terms-section p {
+    font-size: 16px;
+    color: #333333;
+    text-align: justify;
+  }
+  

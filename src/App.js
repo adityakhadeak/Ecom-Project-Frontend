@@ -25,6 +25,8 @@ import { PrivateRoutes } from "./routing/PrivateRoutes";
 import { OpenRoutes } from "./routing/OpenRoutes";
 import Orders from "./pages/Orders";
 import Profile from "./pages/Profile";
+import FAQ from "./pages/FAQ";
+import RefundPolicy from "./pages/RefundPloicy";
 
 function App() {
   return (
@@ -99,9 +101,10 @@ function App() {
             />
             <Route path="reset-password/:token" element={<Resetpassword />} />
             <Route path="privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="refund-policy" element={<RefundPloicy />} />
+            <Route path="refund-policy" element={<RefundPolicy />} />
             <Route path="shipping-policy" element={<ShippingPolicy />} />
             <Route path="term-conditions" element={<TermAndContions />} />
+            <Route path="faq" element={<FAQ />} />
           </Route>
         </Routes>
       </BrowserRouter>

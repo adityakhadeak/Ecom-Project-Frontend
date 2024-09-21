@@ -1,0 +1,74 @@
+/* Styling for RefundPolicy Component */
+.refund-policy-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+  }
+  
+  .refund-policy-header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #f5f5f5;
+    border-radius: 8px;
+  }
+  
+  .refund-policy-header h1 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .refund-policy-header p {
+    color: #555;
+  }
+  
+  .policy-section {
+    margin-bottom: 20px;
+  }
+  
+  .policy-section h2 {
+    font-size: 1.5em;
+    color: #4a90e2;
+    display: flex;
+    align-items: center;
+  }
+  
+  .policy-section h2 svg {
+    margin-right: 10px;
+  }
+  
+  .policy-section p, .policy-section ul {
+    color: #666;
+    line-height: 1.6;
+  }
+  
+  .policy-section ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  .policy-footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .policy-footer p {
+    color: #333;
+  }
+  
+  .policy-footer a {
+    color: #4a90e2;
+    text-decoration: none;
+  }
+  
+  .policy-footer a:hover {
+    text-decoration: underline;
+  }
+  
