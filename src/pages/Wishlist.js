@@ -5,6 +5,7 @@ import Container from "../components/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { addToWishlist } from "../features/products/productSlilce";
 import { getuserProductWishlist } from "../features/user/userSlice";
+import { Link } from "react-router-dom";
 const Wishlist = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -33,8 +34,9 @@ const Wishlist = () => {
           {wishlistState &&
             wishlistState?.map((item, index) => {
               return (
-                <div className="col-3" key={index}>
+                <div style={{ height: "max-content", backgroundColor: 'white' }} className="col-3" key={index}>
                   <div className="wishlist-card position-relative">
+
                     <img
                       onClick={() => {
                         removeFromWishlist(item?._id);
@@ -43,17 +45,19 @@ const Wishlist = () => {
                       alt="cross"
                       className="position-absolute cross img-fluid"
                     />
-                    <div className="wishlist-card-image">
-                      <img
-                        src={
-                          item?.images[0].url
-                            ? item?.images[0].url
-                            : "images/watch.jpg"
-                        }
-                        className="img-fluid w-100"
-                        alt="watch"
-                      />
-                    </div>
+                    <Link to={"/product/" + item?._id}>
+                      <div className="wishlist-card-image">
+                        <img
+                          src={
+                            item?.images[0].url
+                              ? item?.images[0].url
+                              : "images/watch.jpg"
+                          }
+                          className="img-fluid w-100"
+                          alt="watch"
+                        />
+                      </div>
+                    </Link>
                     <div className="py-3 px-3">
                       <h5 className="title">{item?.title}</h5>
                       <h6 className="price">Rs. {item?.price}</h6>
