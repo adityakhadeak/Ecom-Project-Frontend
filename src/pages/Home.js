@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Marquee from "react-fast-marquee";
 import BlogCard from "../components/BlogCard";
@@ -20,6 +20,7 @@ import { getAllProducts } from "../features/products/productSlilce";
 import ReactStars from "react-rating-stars-component";
 import { addToWishlist } from "../features/products/productSlilce";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { getuserProductWishlist } from "../features/user/userSlice";
 
 const Home = () => {
   const blogState = useSelector((state) => state?.blog?.blog);
@@ -27,6 +28,13 @@ const Home = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    getWishlistFromDb();
+  }, []);
+  const getWishlistFromDb = () => {
+    dispatch(getuserProductWishlist());
+  };
 
   useEffect(() => {
     getblogs();
@@ -39,10 +47,34 @@ const Home = () => {
   const getProducts = () => {
     dispatch(getAllProducts());
   };
-  const addToWish = (id) => {
-    //alert(id);
-    dispatch(addToWishlist(id));
+
+  const wishlistState = useSelector((state) => state?.auth?.wishlist?.wishlist);
+  console.log(wishlistState)
+  const [wishlist, setWishlist] = useState(wishlistState || []);
+
+  useEffect(() => {
+    setWishlist(wishlistState || []);
+  }, [wishlistState]);
+
+  const isProductInWishlist = (productId) => {
+    return wishlist?.some((item) => item._id === productId);
   };
+
+  const addToWish = (productId) => {
+    if (isProductInWishlist(productId)) {
+      dispatch(addToWishlist(productId)); // Dispatch the action to update the wishlist in Redux store
+
+      const updatedWishlist = wishlist.filter((item) => item._id !== productId);
+      setWishlist(updatedWishlist);
+    } else {
+      dispatch(addToWishlist(productId)); // Dispatch the action to update the wishlist in Redux store
+
+      const product = productState.find((item) => item._id === productId);
+      setWishlist([...wishlist, product]);
+    }
+  };
+
+
   return (
     <>
       <Container class1="home-wrapper-1 py-5">
@@ -214,38 +246,44 @@ const Home = () => {
           </div>
           {productState &&
             productState?.map((item, index) => {
+              const isWishlist = isProductInWishlist(item._id);
               if (item.tags === "featured") {
                 return (
-                  <div key={index} className={"col-3"}>
+                  <div key={index} style={{ margin: "10px 0" }} className={"col-3"}>
                     <div className="product-card position-relative">
                       <div className="wishlist-icon position-absolute">
-                        <button className="border-0 bg-transparent">
-                          <img
-                            src={wish}
-                            alt="wishlist"
-                            onClick={(e) => {
-                              addToWish(item?._id);
-                            }}
-                          />
+                        <button
+                          className="border-0 bg-transparent"
+                          onClick={(e) => addToWish(item?._id)}
+                        >
+                          {isWishlist ? (
+                            <AiFillHeart className="fs-5 me-1" />
+                          ) : (
+                            <AiOutlineHeart className="fs-5 me-1" />
+                          )}
                         </button>
                       </div>
+
                       <div className="product-image">
-                        <img
-                          src={item?.images[0]?.url}
-                          //className="img-fluid d"
-                          alt="product image"
-                          height={"250px"}
-                          width={"260px"}
-                          onClick={() => navigate("/product/" + item?._id)}
-                        />
-                        <img
-                          src={item?.images[0]?.url}
-                          //className="img-fluid d"
-                          alt="product image"
-                          height={"250px"}
-                          width={"260px"}
-                          onClick={() => navigate("/product/" + item?._id)}
-                        />
+                        <Link to={"/product/" + item?._id}>
+                          <img
+                            src={item?.images[0]?.url}
+                            //className="img-fluid d"
+                            alt="product image"
+                            height={"250px"}
+                            width={"260px"}
+                            onClick={() => navigate("/product/" + item?._id)}
+                          />
+                          {/* <img
+                            src={item?.images[0]?.url}
+                            //className="img-fluid d"
+                            alt="product image"
+                            height={"250px"}
+                            width={"260px"}
+                            onClick={() => navigate("/product/" + item?._id)}
+                          /> */}
+                        </Link>
+
                       </div>
                       <div className="product-details">
                         <h6 className="brand">{item?.brand}</h6>
@@ -265,16 +303,18 @@ const Home = () => {
                       </div>
                       <div className="action-bar position-absolute">
                         <div className="d-flex flex-column gap-15">
-                          {/* <button className="border-0 bg-transparent">
+                          <button className="border-0 bg-transparent">
                             <img src={prodcompare} alt="compare" />
                           </button>
                           <button className="border-0 bg-transparent">
-                            <img
-                              onClick={() => navigate("/product/" + item?._id)}
-                              src={view}
-                              alt="view"
-                            />
-                          </button> */}
+                            <Link to={"/product/" + item?._id}>
+                              <img
+                                onClick={() => navigate("/product/" + item?._id)}
+                                src={view}
+                                alt="view"
+                              />
+                            </Link>
+                          </button>
                           {/* <button className="border-0 bg-transparent">
                             <img src={addcart} alt="addcart" />
                           </button> */}
@@ -366,7 +406,7 @@ const Home = () => {
                     id={item?._id}
                     title={item?.title}
                     brand={item?.brand}
-                    totalrating={item?.totalrating.toString()}
+                    totalrating={item?.totalrating}
                     price={item?.price}
                     img={item?.images[0].url}
                     sold={item?.sold}
@@ -386,38 +426,43 @@ const Home = () => {
         <div className="row">
           {productState &&
             productState?.map((item, index) => {
+              const isWishlist = isProductInWishlist(item._id);
               if (item.tags === "popular") {
                 return (
-                  <div key={index} className={"col-3"}>
+                  <div key={index} style={{ margin: "10px 0" }} className={"col-3"}>
                     <div className="product-card position-relative">
                       <div className="wishlist-icon position-absolute">
-                        <button className="border-0 bg-transparent">
-                          <img
-                            src={wish}
-                            alt="wishlist"
-                            onClick={(e) => {
-                              addToWish(item?._id);
-                            }}
-                          />
+                        <button
+                          className="border-0 bg-transparent"
+                          onClick={(e) => addToWish(item?._id)}
+                        >
+                          {isWishlist ? (
+                            <AiFillHeart className="fs-5 me-1" />
+                          ) : (
+                            <AiOutlineHeart className="fs-5 me-1" />
+                          )}
                         </button>
                       </div>
                       <div className="product-image">
-                        <img
+                        <Link to={"/product/" + item?._id}>
+                          <img
+                            src={item?.images[0].url}
+                            // className="img-fluid d"
+                            alt="product image"
+                            height={"250px"}
+                            width={"100%"}
+                            onClick={() => navigate("/product/" + item?._id)}
+                          />
+                          {/* <img
                           src={item?.images[0].url}
                           // className="img-fluid d"
                           alt="product image"
                           height={"250px"}
                           width={"100%"}
                           onClick={() => navigate("/product/" + item?._id)}
-                        />
-                        <img
-                          src={item?.images[0].url}
-                          // className="img-fluid d"
-                          alt="product image"
-                          height={"250px"}
-                          width={"100%"}
-                          onClick={() => navigate("/product/" + item?._id)}
-                        />
+                        /> */}
+                        </Link>
+
                       </div>
                       <div className="product-details">
                         <h6 className="brand">{item?.brand}</h6>
@@ -427,7 +472,7 @@ const Home = () => {
                         <ReactStars
                           count={5}
                           size={24}
-                          value={item?.totalrating.toString()}
+                          value={item?.totalrating}
                           edit={false}
                           activeColor="#ffd700"
                         />
@@ -436,16 +481,18 @@ const Home = () => {
                       </div>
                       <div className="action-bar position-absolute">
                         <div className="d-flex flex-column gap-15">
-                          {/* <button className="border-0 bg-transparent">
+                          <button className="border-0 bg-transparent">
                             <img src={prodcompare} alt="compare" />
-                          </button> */}
-                          {/* <button className="border-0 bg-transparent">
-                            <img
-                              onClick={() => navigate("/product/" + item?._id)}
-                              src={view}
-                              alt="view"
-                            />
-                          </button> */}
+                          </button>
+                          <button className="border-0 bg-transparent">
+                            <Link to={"/product/" + item?._id}>
+                              <img
+                                onClick={() => navigate("/product/" + item?._id)}
+                                src={view}
+                                alt="view"
+                              />
+                            </Link>
+                          </button>
                           {/* <button className="border-0 bg-transparent">
                             <img src={addcart} alt="addcart" />
                           </button> */}

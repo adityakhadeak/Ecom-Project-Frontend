@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import ReactStars from "react-rating-stars-component";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import wish from "../images/wish.svg";
 // import wishlist from "../images/wishlist.svg";
@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToWishlist } from "../features/products/productSlilce";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useState } from "react";
+import { getuserProductWishlist } from "../features/user/userSlice";
 
 const ProductCard = (props) => {
   console.log(props)
@@ -21,6 +22,12 @@ const ProductCard = (props) => {
   console.log(data);
   const location = useLocation();
 
+  useEffect(() => {
+    getWishlistFromDb();
+  }, []);
+  const getWishlistFromDb = () => {
+    dispatch(getuserProductWishlist());
+  };
   const wishlistState = useSelector((state) => state?.auth?.wishlist?.wishlist);
 
   const [wishlist, setWishlist] = useState(wishlistState || []);
@@ -55,9 +62,8 @@ const ProductCard = (props) => {
         return (
           <div
             key={index}
-            className={` ${
-              location.pathname == "/product" ? `gr-${grid}` : "col-3"
-            } `}
+            className={` ${location.pathname == "/product" ? `gr-${grid}` : "col-3"
+              } `}
           >
             <div className="product-card position-relative">
               <div className="wishlist-icon position-absolute">
@@ -74,22 +80,25 @@ const ProductCard = (props) => {
               </div>
 
               <div className="product-image">
-                <img
+                <Link to={"/product/" + item?._id}>
+                  <img
+                    src={item?.images[0]?.url}
+                    // className="img-fluid d"
+                    alt="product image"
+                    height={"250px"}
+                    width={"100%"}
+                    onClick={() => navigate("/product/" + item?._id)}
+                  />
+
+                  {/* <img
                   src={item?.images[0]?.url}
                   // className="img-fluid d"
                   alt="product image"
                   height={"250px"}
                   width={"100%"}
                   onClick={() => navigate("/product/" + item?._id)}
-                />
-                <img
-                  src={item?.images[0]?.url}
-                  // className="img-fluid d"
-                  alt="product image"
-                  height={"250px"}
-                  width={"100%"}
-                  onClick={() => navigate("/product/" + item?._id)}
-                />
+                /> */}
+                </Link>
               </div>
               <div className="product-details">
                 <h6 className="brand">{item?.brand}</h6>
@@ -112,9 +121,9 @@ const ProductCard = (props) => {
                 <div className="d-flex flex-column gap-15">
                   {/* <button className="border-0 bg-transparent">
                     <img src={prodcompare} alt="compare" />
-                  </button> */}
+                  </button>
 
-                  {/* <button className="border-0 bg-transparent">
+                  <button className="border-0 bg-transparent">
                     <img
                       onClick={() => navigate("/product/" + item?._id)}
                       src={view}

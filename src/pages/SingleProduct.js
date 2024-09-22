@@ -35,7 +35,8 @@ const SingleProduct = () => {
   const rat = productState?.totalrating;
   const wishlistState = useSelector((state) => state?.auth?.wishlist?.wishlist);
   console.log(wishlistState);
-
+  const userState = useSelector((state) => state.auth.user);
+console.log(userState?.firstname)
   useEffect(() => {
     dispatch(getAProduct(getProductId));
     dispatch(getUserCart());
@@ -119,7 +120,7 @@ const SingleProduct = () => {
       return false;
     } else {
       dispatch(
-        addRating({ star: star, comment: comment, prodId: getProductId })
+        addRating({username:userState!=null?userState?.firstname:"User", star: star, comment: comment, prodId: getProductId })
       );
       setTimeout(() => {
         dispatch(getAProduct(getProductId));
@@ -161,7 +162,7 @@ const SingleProduct = () => {
                   <ReactStars
                     count={5}
                     size={24}
-                    value={productState?.totalrating.toString()}
+                    value={productState?.totalrating}
                     edit={false}
                     activeColor="#ffd700"
                   />
@@ -388,7 +389,7 @@ const SingleProduct = () => {
                     return (
                       <div className="review">
                         <div className="d-flex gap-10 align-items-center">
-                          <h6 className="mb-0">user</h6>
+                          <h6 className="mb-0">{item?.username!=null?item?.username:"User"}</h6>
                           <ReactStars
                             count={5}
                             size={24}
