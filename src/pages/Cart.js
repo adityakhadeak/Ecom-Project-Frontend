@@ -11,6 +11,7 @@ import {
   getUserCart,
   updateCartProduct,
 } from "../features/user/userSlice";
+import { BeatLoader } from "react-spinners";
 
 const Cart = () => {
   const getTokenFromLocalStorage = localStorage.getItem("customer")
@@ -19,9 +20,8 @@ const Cart = () => {
 
   const config2 = {
     headers: {
-      Authorization: `Bearer ${
-        getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
-      }`,
+      Authorization: `Bearer ${getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
+        }`,
       Accept: "application/json",
     },
   };
@@ -29,12 +29,13 @@ const Cart = () => {
   const dispatch = useDispatch();
 
   const [productupdateDetail, setProductupdateDetail] = useState(null);
-  const [totalAmount, setTotalAmount] = useState(null);
+  const [totalAmount, setTotalAmount] = useState(0); // Default to 0
   const userCartState = useSelector((state) => state.auth.cartProducts);
 
   useEffect(() => {
+    // Fetch the cart data on component mount
     dispatch(getUserCart(config2));
-  }, []);
+  }, [dispatch]); // Dispatch dependency added
 
   useEffect(() => {
     if (productupdateDetail !== null) {
@@ -43,26 +44,27 @@ const Cart = () => {
           cartItemId: productupdateDetail?.cartItemId,
           quantity: productupdateDetail?.quantity,
         })
-      );
-      setTimeout(() => {
+      ).then(() => {
+        // Fetch cart data immediately after updating
         dispatch(getUserCart(config2));
-      }, 200);
+      });
+      setProductupdateDetail(null); // Reset the state
     }
-  }, [productupdateDetail]);
+  }, [productupdateDetail, dispatch]);
 
   const deleteACartProduct = (id) => {
-    dispatch(deleteCartProduct({ id: id, config2: config2 }));
-    setTimeout(() => {
+    dispatch(deleteCartProduct({ id: id, config2: config2 })).then(() => {
+      // Fetch cart data immediately after deletion
       dispatch(getUserCart(config2));
-    }, 200);
+    });
   };
 
   useEffect(() => {
     let sum = 0;
-    for (let index = 0; index < userCartState?.length; index++) {
-      sum =
-        sum +
-        Number(userCartState[index].quantity) * userCartState[index].price;
+    if (userCartState?.length) {
+      userCartState.forEach((item) => {
+        sum += Number(item.quantity) * item.price;
+      });
       setTotalAmount(sum);
     }
   }, [userCartState]);
@@ -72,16 +74,20 @@ const Cart = () => {
       <Meta title={"Cart"} />
       <BreadCrumb title="Cart" />
       <Container class1="cart-wrapper home-wrapper-2 py-5">
-        <div className="row">
-          <div className="col-12">
-            <div className="cart-header py-3 d-flex justify-content-between align-items-center">
-              <h4 className="cart-col-1">Product</h4>
-              <h4 className="cart-col-2">Price</h4>
-              <h4 className="cart-col-3">Quantity</h4>
-              <h4 className="cart-col-4">Total</h4>
-            </div>
-            {userCartState &&
-              userCartState?.map((item, index) => {
+        {!userCartState ? (
+          <div style={{ textAlign: "center" }}>
+            <BeatLoader size={10} />
+          </div>
+        ) : (
+          <div className="row">
+            <div className="col-12">
+              <div className="cart-header py-3 d-flex justify-content-between align-items-center">
+                <h4 className="cart-col-1">Product</h4>
+                <h4 className="cart-col-2">Price</h4>
+                <h4 className="cart-col-3">Quantity</h4>
+                <h4 className="cart-col-4">Total</h4>
+              </div>
+              {userCartState?.map((item, index) => {
                 return (
                   <div
                     key={index}
@@ -101,9 +107,7 @@ const Cart = () => {
                         <div className="d-flex gap-3">
                           Color:
                           <p className="colors ps-0">
-                            <li
-                              style={{ backgroundColor: item?.color.title }}
-                            ></li>
+                            <li style={{ backgroundColor: item?.color.title }}></li>
                           </p>
                         </div>
                       </div>
@@ -129,7 +133,7 @@ const Cart = () => {
                           }}
                         />
                       </div>
-                      <div>
+                      <div style={{ cursor: "pointer" }}>
                         <AiFillDelete
                           onClick={() => {
                             deleteACartProduct(item?._id);
@@ -146,27 +150,25 @@ const Cart = () => {
                   </div>
                 );
               })}
-          </div>
-          <div className="col-12 py-2 mt-4">
-            <div className="d-flex justify-content-between align-items-baseline">
-              <Link to="/product" className="button">
-                Continue To Shopping
-              </Link>
-              {(totalAmount !== null || totalAmount !== 0) && (
-                <div className="d-flex flex-column align-items-end">
-                  <h4>
-                    SubTotal: Rs.{" "}
-                    {!userCartState?.length ? 0 : totalAmount ? totalAmount : 0}
-                  </h4>
-                  <p>Taxes and shipping calculated at checkout</p>
-                  <Link to="/checkout" className="button">
-                    Checkout
-                  </Link>
-                </div>
-              )}
+            </div>
+            <div className="col-12 py-2 mt-4">
+              <div className="d-flex justify-content-between align-items-baseline">
+                <Link to="/product" className="button">
+                  Continue To Shopping
+                </Link>
+                {totalAmount > 0 && (
+                  <div className="d-flex flex-column align-items-end">
+                    <h4>SubTotal: Rs. {totalAmount}</h4>
+                    <p>Taxes and shipping calculated at checkout</p>
+                    <Link to="/checkout" className="button">
+                      Checkout
+                    </Link>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </Container>
     </>
   );

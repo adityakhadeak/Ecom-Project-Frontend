@@ -61,7 +61,15 @@ const OurStore = () => {
             <div className="filter-card mb-3">
               <h3 className="filter-title">Shop By Categories</h3>
               <div>
+                <a
+                  className="ps-0"
+                  href="/product"
+                  style={{ color: "var(--color-777777)" }}
+                >
+                  Remove Filter
+                </a>
                 <ul className="ps-0">
+
                   <a
                     className="ps-0"
                     href="/product"
@@ -120,6 +128,7 @@ const OurStore = () => {
                       [...new Set(tags)].map((item, index) => {
                         return (
                           <span
+                            style={{ cursor: 'pointer' }}
                             key={index}
                             onClick={() => setTag(item)}
                             className="text-capitalize badge bg-light text-secondary rounded-3 py-2 px-3"
@@ -139,6 +148,7 @@ const OurStore = () => {
                       [...new Set(brands)].map((item, index) => {
                         return (
                           <span
+                            style={{ cursor: 'pointer' }}
                             key={index}
                             onClick={() => setBrand(item)}
                             className="text-capitalize badge bg-light text-secondary rounded-3 py-2 px-3"

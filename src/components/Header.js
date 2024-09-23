@@ -27,9 +27,8 @@ const Header = () => {
 
   const config2 = {
     headers: {
-      Authorization: `Bearer ${
-        getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
-      }`,
+      Authorization: `Bearer ${getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
+        }`,
       Accept: "application/json",
     },
   };
@@ -62,11 +61,12 @@ const Header = () => {
   };
   return (
     <>
-      <header className="header-top-strip py-3">
+      <header style={{backgroundColor:'#262e41'}} className="header-top-strip py-3">
         <div className="container-xxl">
           <div className="row">
             <div className="col-6">
-              <p className="text-white mb-0">Free Shipping Over Rs.100</p>
+              {/* <p className="text-white mb-0">Free Shipping Over Rs.100</p> */}
+              <img width={'400px'} src="https://m.media-amazon.com/images/G/31/Events/img24/Jupiter24/J24_SWM_DealsRevealed._CB563714474_.jpg" alt="" />
             </div>
             <div className="col-6">
               <p className="text-end text-white mb-0">
@@ -85,7 +85,7 @@ const Header = () => {
             <div className="col-2">
               <h2>
                 <Link className="text-white" to="/ ">
-                  Quickcart
+                  QuickCart
                 </Link>
               </h2>
             </div>

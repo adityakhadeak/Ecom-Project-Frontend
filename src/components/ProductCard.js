@@ -15,11 +15,9 @@ import { useState } from "react";
 import { getuserProductWishlist } from "../features/user/userSlice";
 
 const ProductCard = (props) => {
-  console.log(props)
   const navigate = useNavigate();
   const { grid, data } = props;
   const dispatch = useDispatch();
-  console.log(data);
   const location = useLocation();
 
   useEffect(() => {
@@ -58,7 +56,6 @@ const ProductCard = (props) => {
     <>
       {data?.map((item, index) => {
         const isWishlist = isProductInWishlist(item._id);
-        console.log(isWishlist);
         return (
           <div
             key={index}
@@ -87,10 +84,11 @@ const ProductCard = (props) => {
                     alt="product image"
                     height={"250px"}
                     width={"100%"}
-                    onClick={() => navigate("/product/" + item?._id)}
+                  onClick={() => navigate("/product/" + item?._id)}
                   />
+                </Link>
 
-                  {/* <img
+                {/* <img
                   src={item?.images[0]?.url}
                   // className="img-fluid d"
                   alt="product image"
@@ -98,7 +96,6 @@ const ProductCard = (props) => {
                   width={"100%"}
                   onClick={() => navigate("/product/" + item?._id)}
                 /> */}
-                </Link>
               </div>
               <div className="product-details">
                 <h6 className="brand">{item?.brand}</h6>

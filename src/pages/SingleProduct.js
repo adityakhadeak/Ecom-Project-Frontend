@@ -34,14 +34,12 @@ const SingleProduct = () => {
   const cartState = useSelector((state) => state?.auth?.cartProducts);
   const rat = productState?.totalrating;
   const wishlistState = useSelector((state) => state?.auth?.wishlist?.wishlist);
-  console.log(wishlistState);
   const userState = useSelector((state) => state.auth.user);
-console.log(userState?.firstname)
   useEffect(() => {
     dispatch(getAProduct(getProductId));
     dispatch(getUserCart());
     dispatch(getAllProducts());
-  }, []);
+  }, [getProductId]);
 
   useEffect(() => {
     for (let index = 0; index < cartState?.length; index++) {
@@ -87,20 +85,17 @@ console.log(userState?.firstname)
     textField.remove();
   };
 
-  const closeModal = () => {};
+  const closeModal = () => { };
   const [popularProduct, setPopularProduct] = useState([]);
 
+
   useEffect(() => {
-    let data = [];
-    for (let index = 0; index < productsState.length; index++) {
-      const element = productsState[index];
-      if (element.tags === "popular") {
-        data.push(element);
-      } else {
-        setPopularProduct(data);
-      }
+    if (productsState.length > 0) {
+      const data = productsState.filter((element) => element.tags === "popular");
+      setPopularProduct(data);
     }
-  }, [productState]);
+  }, [productsState]);
+
 
   const [star, setStar] = useState(null);
   const [comment, setComment] = useState(null);
@@ -120,7 +115,7 @@ console.log(userState?.firstname)
       return false;
     } else {
       dispatch(
-        addRating({username:userState!=null?userState?.firstname:"User", star: star, comment: comment, prodId: getProductId })
+        addRating({ username: userState != null ? userState?.firstname : "User", star: star, comment: comment, prodId: getProductId })
       );
       setTimeout(() => {
         dispatch(getAProduct(getProductId));
@@ -213,12 +208,14 @@ console.log(userState?.firstname)
                   </div>
                 </div> */}
                 {alreadyAdded === false && (
-                  <div className="d-flex gap-10 flex-column mt-2 mb-3">
+                  <div style={{ cursor: 'pointer' }} className="d-flex gap-10 flex-column mt-2 mb-3">
                     <h3 className="product-heading">Color :</h3>
                     <Color
                       setColor={setColor}
                       colorData={productState?.color}
                     />
+                    {!color && <div>Select Color</div>}
+                    {color && <div>Color Selected </div>}
                   </div>
                 )}
 
@@ -389,7 +386,7 @@ console.log(userState?.firstname)
                     return (
                       <div className="review">
                         <div className="d-flex gap-10 align-items-center">
-                          <h6 className="mb-0">{item?.username!=null?item?.username:"User"}</h6>
+                          <h6 className="mb-0">{item?.username != null ? item?.username : "User"}</h6>
                           <ReactStars
                             count={5}
                             size={24}
